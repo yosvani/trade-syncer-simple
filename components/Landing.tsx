@@ -35,9 +35,10 @@ const Landing: React.FC = () => {
         {/* Agrega más si quieres */}
       </section>
       
-      <footer className="mt-8">
-        <a href="/signup" className="bg-blue-500 text-white px-4 py-2 rounded">Regístrate Gratis</a>
-      </footer>
+     <footer className="mt-8 flex space-x-4">
+      <a href="/auth/signup" className="bg-blue-500 text-white px-4 py-2 rounded">Regístrate Gratis</a>
+       <a href="/auth/login" className="bg-green-500 text-white px-4 py-2 rounded">Login</a>
+     </footer>
     </div>
   );
 };
