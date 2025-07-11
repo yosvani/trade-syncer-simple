@@ -1,13 +1,8 @@
-import { supabase } from '../lib/supabase-db';
+// app/page.tsx
+// Página de entrada principal. Importa componentes modulares para mantener separación.
 
-export default async function Home() {
-  const { data, error } = await supabase.from('test_table').select('*'); // Tabla dummy
-  console.log('Supabase test:', data, error);
+import Landing from '../components/Landing';
 
-  return (
-    <div>
-      <h1>Prueba Supabase</h1>
-      <p>Revisa la consola del server (terminal) para logs.</p>
-    </div>
-  );
+export default function Home() {
+  return <Landing />;
 }
