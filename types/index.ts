@@ -21,3 +21,11 @@ export interface Trade {
   amount: number;
   type: 'buy' | 'sell';
 }
+
+
+export interface BrokerConfig {
+  id: string;
+  broker_name: string;
+  api_key: string;
+  config: any;
+}

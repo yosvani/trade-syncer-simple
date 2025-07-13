@@ -1,30 +1,29 @@
 // app/auth/login/page.tsx
-// Página para login. Usa hook auth y trades modularmente.
+// Página para login. Redirige a dashboard cuando user se actualiza después de login exitoso.
 
 'use client';
 
-import { useState } from 'react';
-import { useAuth } from '../../../hooks/useAuth';
-import { useTrades } from '../../../hooks/useTrades';  // Asegúrate de este import
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';  // Para redirect
+import { useAuth } from '../../../hooks/useAuth';  // Ajusta la ruta si es diferente
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [loggedIn, setLoggedIn] = useState(false);  // Nuevo: Flag para post-login
-  const { login, loading, error } = useAuth();
-  const { trades, error: tradesError } = useTrades();  // Mueve aquí: Nivel superior
+  const { login, loading, error, user } = useAuth();  // Incluye user para vigilar
+  const router = useRouter();
+
+  // Redirect auto cuando user se sets después de login
+  useEffect(() => {
+    if (user) {
+      router.push('/dashboard');  // Redirige si logueado
+    }
+  }, [user, router]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    await login(email, password);
-    setLoggedIn(true);  // Activa flag después de login
+    await login(email, password);  // Llama login, el useEffect maneja el redirect
   };
-
-  // Test post-login: Imprime trades si loggedIn
-  if (loggedIn) {
-    console.log('Trades después de login:', trades);
-    if (tradesError) console.error('Error en trades:', tradesError);
-  }
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
