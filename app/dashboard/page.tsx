@@ -1,5 +1,5 @@
 // app/dashboard/page.tsx
-// Página de dashboard con navbar vertical fijo, categorías con íconos modernos, subcategorías ocultas/toggle, diseño minimalista.
+// Página de dashboard mejorada con mayor espaciado, layout pulido, categorías con íconos, subcategorías ocultas/toggle, diseño moderno.
 
 'use client';
 
@@ -124,8 +124,8 @@ export default function Dashboard() {
         </div>
       </nav>
 
-      {/* Contenido con padding-left para evitar superposición */}
-      <div className={`flex-1 pl-0 md:pl-72 p-6 transition-colors duration-300 ${darkMode ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-900'}`}>
+      {/* Contenido con mayor espaciado y layout pulido */}
+      <div className={`flex-1 pl-0 md:pl-80 p-6 transition-colors duration-300 ${darkMode ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-900'}`}>
         <header className="flex justify-between items-center mb-8">
           <h1 className="text-4xl font-bold">Dashboard</h1>
           <div className="flex items-center space-x-4">
@@ -135,24 +135,24 @@ export default function Dashboard() {
           </div>
         </header>
 
-        {/* Stats Summary Cards */}
-        <section className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 animate-fade-in-up">
-          <div className="p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 bg-white dark:bg-gray-800">
-            <h2 className="text-xl font-semibold mb-2">Total Trades</h2>
+        {/* Stats Summary Cards con mayor espaciado */}
+        <section className="mx-auto max-w-7xl grid grid-cols-1 md:grid-cols-3 gap-8 mb-12 animate-fade-in-up">
+          <div className="p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 bg-white dark:bg-gray-800">
+            <h2 className="text-xl font-semibold mb-3">Total Trades</h2>
             <p className="text-3xl">{totalTrades}</p>
           </div>
-          <div className="p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 bg-white dark:bg-gray-800">
-            <h2 className="text-xl font-semibold mb-2">Total Amount</h2>
+          <div className="p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 bg-white dark:bg-gray-800">
+            <h2 className="text-xl font-semibold mb-3">Total Amount</h2>
             <p className="text-3xl">${totalAmount.toFixed(2)}</p>
           </div>
-          <div className="p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 bg-white dark:bg-gray-800">
-            <h2 className="text-xl font-semibold mb-2">Avg Amount</h2>
+          <div className="p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 bg-white dark:bg-gray-800">
+            <h2 className="text-xl font-semibold mb-3">Avg Amount</h2>
             <p className="text-3xl">${avgAmount}</p>
           </div>
         </section>
 
         {/* Sección de Trades con Table Sortable */}
-        <section className="mb-8 bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg">
+        <section className="mx-auto max-w-7xl mb-12 bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md">
           <h2 className="text-2xl font-bold mb-4">Tus Trades</h2>
           <div className="flex space-x-4 mb-4">
             <button onClick={() => setSortBy('created_at')} className="px-4 py-2 rounded bg-indigo-100 dark:bg-indigo-900 hover:bg-indigo-200 dark:hover:bg-indigo-800">Sort by Date</button>
@@ -190,18 +190,18 @@ export default function Dashboard() {
         </section>
 
         {/* Sección de Analytics */}
-        <section className="mb-8 bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg">
+        <section className="mx-auto max-w-7xl mb-12 bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md">
           <h2 className="text-2xl font-bold mb-4">Analytics</h2>
           <Line data={chartData} options={chartOptions} />
         </section>
 
         {/* Sección de Calendario Económico */}
-        <section className="mb-8">
+        <section className="mx-auto max-w-7xl mb-12">
           <EconomicCalendar />
         </section>
 
         {/* Sección de Simulación de Brokers */}
-        <section className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg">
+        <section className="mx-auto max-w-7xl bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md">
           <h2 className="text-2xl font-bold mb-4">Conectar Brokers (Simulación)</h2>
           <form onSubmit={(e) => {
             e.preventDefault();
