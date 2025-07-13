@@ -1,16 +1,14 @@
 // app/dashboard/page.tsx
-// Página de dashboard modular. Protegida por auth; muestra trades en lista y gráfico.
-// Real-time: Actualiza auto via hook. Usa Chart.js para analytics básicos.
-// Integrado: Calendario económico y simulación de brokers.
+// Página de dashboard modular. Protegida por auth; muestra trades, gráfico, calendario, brokers.
 
-'use client'; // Client-side para interacciones y gráficos
+'use client';
 
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '../../hooks/useAuth';
 import { useTrades } from '../../hooks/useTrades';
-import { useBrokerConfigs } from '../../hooks/useBrokerConfigs';  // Nuevo: Import para brokers
-import EconomicCalendar from '../../components/EconomicCalendar';  // Nuevo: Import para calendario
+import { useBrokerConfigs } from '../../hooks/useBrokerConfigs';
+import EconomicCalendar from '../../components/EconomicCalendar';
 import { Line } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
@@ -23,22 +21,22 @@ import {
   Legend,
 } from 'chart.js';
 
-// Registra elementos de Chart.js (requerido una vez)
+// Registra elementos de Chart.js
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
 export default function Dashboard() {
-  const { user, loading: authLoading, logout } = useAuth();
+  const { user, loading: authLoading, logout, trialExpired } = useAuth();  // Incluye trialExpired
   const { trades, loading, error, addTrade } = useTrades();
-  const { configs, addConfig } = useBrokerConfigs();  // Nuevo: Hook para brokers
+  const { configs, addConfig } = useBrokerConfigs();
   const router = useRouter();
 
-  // Protección: Solo redirige si no loading y no user
   useEffect(() => {
     if (!authLoading && !user) router.push('/auth/login');
   }, [user, authLoading, router]);
 
   if (authLoading || loading) return <p className="text-center">Cargando...</p>;
   if (error) return <p className="text-red-500 text-center">Error: {error}</p>;
+  if (trialExpired) return <p className="text-red-500 text-center">Trial expired. Subscribe to continue!</p>;
 
   // Datos para gráfico simple (ej. amounts por tiempo)
   const chartData = {
@@ -92,12 +90,12 @@ export default function Dashboard() {
         <Line data={chartData} options={{ responsive: true }} />
       </section>
 
-      {/* Nuevo: Sección para Calendario Económico */}
+      {/* Sección para Calendario Económico */}
       <section className="mt-6">
         <EconomicCalendar />
       </section>
 
-      {/* Nuevo: Sección para Simulación de Brokers */}
+      {/* Sección para Simulación de Brokers */}
       <section className="bg-white p-4 rounded shadow mt-6">
         <h2 className="text-2xl mb-4">Conectar Brokers (Simulación)</h2>
         <form onSubmit={(e) => {
