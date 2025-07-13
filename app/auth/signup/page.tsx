@@ -1,15 +1,21 @@
 // app/auth/signup/page.tsx
-// Página para registro. Usa hook auth para separación de lógica.
+// Página para registro. Usa hook auth y redirige a dashboard en éxito. Estilo moderno con gradient y animaciones.
 
-'use client'; // Marca como client-side (necesario para forms interactivos)
+'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { useAuth } from '../../../hooks/useAuth';
 
 export default function Signup() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { signup, loading, error } = useAuth();
+  const { signup, loading, error, user } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (user) router.push('/dashboard');
+  }, [user, router]);
 
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -17,30 +23,39 @@ export default function Signup() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <form onSubmit={handleSignup} className="bg-white p-6 rounded shadow">
-        <h2 className="text-2xl mb-4">Regístrate</h2>
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Email"
-          className="block w-full mb-2 p-2 border"
-          required
-        />
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Contraseña"
-          className="block w-full mb-2 p-2 border"
-          required
-        />
-        <button type="submit" disabled={loading} className="bg-blue-500 text-white px-4 py-2">
-          {loading ? 'Cargando...' : 'Signup'}
-        </button>
-        {error && <p className="text-red-500 mt-2">{error}</p>}
-      </form>
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-6 animate-fade-in">
+      <div className="bg-white p-8 rounded-2xl shadow-xl max-w-md w-full transform hover:scale-105 transition duration-300">
+        <h2 className="text-3xl font-bold text-indigo-700 mb-6 text-center">Regístrate Gratis</h2>
+        <form onSubmit={handleSignup}>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Email"
+            className="block w-full mb-4 p-3 border border-gray-300 rounded-lg focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition duration-200"
+            required
+          />
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Contraseña"
+            className="block w-full mb-4 p-3 border border-gray-300 rounded-lg focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition duration-200"
+            required
+          />
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full bg-indigo-600 text-white py-3 rounded-lg font-bold hover:bg-indigo-700 hover:shadow-lg transition duration-300"
+          >
+            {loading ? 'Cargando...' : 'Signup'}
+          </button>
+          {error && <p className="text-red-500 mt-4 text-center flex items-center justify-center"><span className="mr-2">❌</span>{error}</p>}
+        </form>
+        <p className="text-center mt-6 text-gray-600">
+          ¿Ya tienes cuenta? <a href="/auth/login" className="text-indigo-600 hover:underline">Inicia Sesión</a>
+        </p>
+      </div>
     </div>
   );
 }

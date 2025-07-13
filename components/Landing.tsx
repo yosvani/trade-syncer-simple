@@ -1,26 +1,24 @@
 // components/Landing.tsx
-// Este componente maneja la página de inicio (landing). Moderno con gradients, animaciones y responsive.
-// Navbar mejorado: Sticky, responsive con useState para toggle en mobile, animaciones hover y slide-in.
+// Actualizado con enlaces en navbar a las nuevas páginas.
 
-'use client';  // Agregado: Para permitir hooks como useState en client-side
+'use client';
 
 import React, { useState } from 'react';
 
 const Landing: React.FC = () => {
-  const [open, setOpen] = useState(false);  // Estado para toggle menu mobile
+  const [open, setOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex flex-col p-0">
-      {/* Navbar Mejorado: Sticky, responsive con estado React para toggle, animaciones */}
+      {/* Navbar con enlaces */}
       <nav className="sticky top-0 bg-white shadow-md py-4 px-6 md:px-12 z-10 flex justify-between items-center rounded-b-xl animate-fade-in-down">
         <div className="text-2xl font-bold text-indigo-700">TradeSyncer</div>
-        {/* Menu Desktop */}
         <ul className="hidden md:flex space-x-6 text-gray-700">
-          <li className="hover:text-indigo-600 transition-colors duration-300 cursor-pointer hover:scale-105">Features</li>
-          <li className="hover:text-indigo-600 transition-colors duration-300 cursor-pointer hover:scale-105">About Us</li>
-          <li className="hover:text-indigo-600 transition-colors duration-300 cursor-pointer hover:scale-105">Pricing</li>
-          <li className="hover:text-indigo-600 transition-colors duration-300 cursor-pointer hover:scale-105">Affiliates</li>
-          <li className="hover:text-indigo-600 transition-colors duration-300 cursor-pointer hover:scale-105">FAQ</li>
+          <li><a href="/features" className="hover:text-indigo-600 transition-colors duration-300 cursor-pointer hover:scale-105">Features</a></li>
+          <li><a href="/about-us" className="hover:text-indigo-600 transition-colors duration-300 cursor-pointer hover:scale-105">About Us</a></li>
+          <li><a href="/pricing" className="hover:text-indigo-600 transition-colors duration-300 cursor-pointer hover:scale-105">Pricing</a></li>
+          <li><a href="/affiliates" className="hover:text-indigo-600 transition-colors duration-300 cursor-pointer hover:scale-105">Affiliates</a></li>
+          <li><a href="/faq" className="hover:text-indigo-600 transition-colors duration-300 cursor-pointer hover:scale-105">FAQ</a></li>
         </ul>
         <div className="hidden md:flex space-x-4">
           <a href="/auth/login" className="bg-gray-200 text-gray-700 px-4 py-2 rounded-full hover:bg-gray-300 transition duration-300">
@@ -30,7 +28,6 @@ const Landing: React.FC = () => {
             Start For Free
           </a>
         </div>
-        {/* Hamburger Icon para Mobile */}
         <div className="md:hidden">
           <button onClick={() => setOpen(!open)} className="text-gray-700 focus:outline-none">
             <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -42,20 +39,20 @@ const Landing: React.FC = () => {
             </svg>
           </button>
         </div>
-        {/* Menu Mobile: Slide-in con animación Tailwind */}
         <div className={`${open ? 'translate-x-0' : 'translate-x-full'} absolute top-full left-0 w-full bg-white shadow-md md:hidden transition-transform duration-300 ease-in-out`}>
           <ul className="flex flex-col space-y-4 p-6 text-gray-700">
-            <li className="hover:text-indigo-600 transition-colors duration-300 cursor-pointer">Features</li>
-            <li className="hover:text-indigo-600 transition-colors duration-300 cursor-pointer">About Us</li>
-            <li className="hover:text-indigo-600 transition-colors duration-300 cursor-pointer">Pricing</li>
-            <li className="hover:text-indigo-600 transition-colors duration-300 cursor-pointer">Affiliates</li>
-            <li className="hover:text-indigo-600 transition-colors duration-300 cursor-pointer">FAQ</li>
+            <li><a href="/features" className="hover:text-indigo-600 transition-colors duration-300 cursor-pointer">Features</a></li>
+            <li><a href="/about-us" className="hover:text-indigo-600 transition-colors duration-300 cursor-pointer">About Us</a></li>
+            <li><a href="/pricing" className="hover:text-indigo-600 transition-colors duration-300 cursor-pointer">Pricing</a></li>
+            <li><a href="/affiliates" className="hover:text-indigo-600 transition-colors duration-300 cursor-pointer">Affiliates</a></li>
+            <li><a href="/faq" className="hover:text-indigo-600 transition-colors duration-300 cursor-pointer">FAQ</a></li>
             <li><a href="/auth/login" className="block bg-gray-200 text-gray-700 px-4 py-2 rounded-full hover:bg-gray-300 transition duration-300 text-center">Sign in</a></li>
             <li><a href="/auth/signup" className="block bg-indigo-600 text-white px-4 py-2 rounded-full hover:bg-indigo-700 transition duration-300 shadow-md text-center">Start For Free</a></li>
           </ul>
         </div>
       </nav>
 
+      {/* Resto del contenido de landing (header, sections, footer) - no cambiado */}
       <div className="flex flex-col items-center justify-center flex-1 px-6 py-12 md:py-0">
         <header className="text-center mb-12 animate-fade-in-down">
           <h1 className="text-5xl md:text-6xl font-extrabold text-indigo-700 drop-shadow-md">
@@ -67,7 +64,6 @@ const Landing: React.FC = () => {
         </header>
         
         <section className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 animate-fade-in-up">
-          {/* Features - Cards modernas con hover */}
           <div className="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 transform hover:-translate-y-1">
             <div className="text-3xl mb-4">🚀</div>
             <h2 className="text-2xl font-semibold text-indigo-600">Sincronización Rápida</h2>
